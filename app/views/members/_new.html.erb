@@ -1,0 +1,22 @@
+﻿<h2>New Member</h2>
+<%= form_for :member, url: members_path do |f| %>
+    <p>
+        <%= f.label :name, 'Member Name:' %>
+        <%= f.text_field :name %>
+    </p>
+    <p>
+        <%= f.label :serial_no, 'Serial No:' %>
+        <%= f.text_field :serial_no %>
+    </p>
+    <%= f.submit 'Save Member' %>
+    <a href="javascript:void(0);" id="cancel-new">Cancel</a>
+<% end %>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#cancel-new").click(function () 
+        {
+            $("#new-member").html("");
+        });
+    });
+</script>

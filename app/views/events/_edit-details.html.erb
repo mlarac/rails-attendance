@@ -1,0 +1,23 @@
+<div id="event">
+    <div id="details">
+        <%= form_for :event, url: event_path(@event),  method: :patch do |f| %>
+        <p>
+            <%= f.label :name, 'Event Name:' %>
+            <%= f.text_field :name %>
+        </p>
+        <p>
+            <%= f.label :start_time, 'Start Time:' %>
+            <%= f.datetime_local_field :start_time %>
+        </p>
+        <p>
+            <%= f.label :end_time, 'End Time:' %>
+            <%= f.datetime_local_field :end_time %>
+        </p>
+        <p>
+            <%= f.label :venue, 'Venue:' %>
+            <%= f.text_field :venue %>
+        </p>
+        <%= f.submit 'Update Event' %>  <%= link_to 'Remove Event', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+    </div>
+</div>

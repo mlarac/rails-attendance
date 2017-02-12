@@ -1,0 +1,35 @@
+﻿<script type="text/javascript">
+  $(function (){
+     $(document).on("change","#events_name", function (){
+        $.ajax({ url: this.value + "/edit" });
+     });
+  });  
+
+  $(function (){
+     $(document).ready(function (){
+        var id =$('#events_name').val();
+        $.ajax({ url: id + "/edit" });
+
+        var jqxhr = $.getJSON( "get_attendance", function() {
+          console.log( "success" );
+        });
+     });
+  });   
+</script>
+
+<div id="event">
+    <%= select("events", "name", Event.order('id DESC').all.collect {|p| [ p.name, p.id ] }, { include_blank: false }) %>
+    <div id="edit-details"></div>
+
+  <div id="attendance">
+      <select id="absence" multiple>
+        <option value="0">Chan Tai Man</option>
+        <option value="1">Chan Siu Man</option>
+      </select>
+          
+      <select id="presence" multiple>
+        <option value="0">Chan Tai Ming</option>
+        <option value="1">Chan Siu Ming</option>      
+      </select>
+  </div>
+</div>

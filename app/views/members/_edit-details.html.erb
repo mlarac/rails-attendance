@@ -1,0 +1,11 @@
+<%= form_for :member, url: member_path(@member),  method: :patch do |f| %>
+<p>
+    <%= f.label :name, 'Member Name:' %>
+    <%= f.text_field :name %>
+</p>
+<p>
+    <%= f.label :serial_no, 'Serial No:' %>
+    <%= f.text_field :serial_no %>
+</p>
+<%= f.submit 'Update Member' %> <%= link_to 'Remove Member', member_path(@member), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
