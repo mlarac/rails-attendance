@@ -42,13 +42,6 @@ class EventsController < ApplicationController
     redirect_to "/events/"
   end
   
-  def get_attendance
-    respond_to do |format|
-      msg = { :status => "ok", :message => "Success!" }
-      format.json  { render :json => msg } # don't do msg.to_json
-    end
-  end
-
  private
     def event_params
       params.require(:event).permit(:name, :start_time, :end_time, :venue)
