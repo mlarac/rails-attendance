@@ -9,10 +9,6 @@
      $(document).ready(function (){
         var id =$('#events_name').val();
         $.ajax({ url: id + "/edit" });
-
-        var jqxhr = $.getJSON( "get_attendance", function() {
-          console.log( "success" );
-        });
      });
   });   
 </script>

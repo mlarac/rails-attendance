@@ -1,6 +1,5 @@
 class MembersController < ApplicationController
   def index
-    @members = Member.all
 	respond_to do |format|
       format.html # index.html.erb
     end
@@ -35,6 +34,7 @@ class MembersController < ApplicationController
     @member.destroy
     redirect_to "/members/"
   end
+  
   
  private
     def member_params
