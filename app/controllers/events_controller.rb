@@ -41,11 +41,7 @@ class EventsController < ApplicationController
     @event.destroy
     redirect_to "/events/"
   end
-  
-  def testgit
-  
-  end
-  
+
  private
     def event_params
       params.require(:event).permit(:name, :start_time, :end_time, :venue)

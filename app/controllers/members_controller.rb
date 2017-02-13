@@ -1,8 +1,6 @@
 class MembersController < ApplicationController
   def index
-	respond_to do |format|
-      format.html # index.html.erb
-    end
+    @members = Member.all
   end
   
   def create
@@ -15,6 +13,7 @@ class MembersController < ApplicationController
   
   def edit
     @member = Member.find(params[:id])
+	@id = params[:id]
 	respond_to do |format|
       format.js
     end

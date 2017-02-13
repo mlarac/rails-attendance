@@ -1,20 +1,12 @@
-﻿<script type="text/javascript">
-  $(function (){
-     $(document).on("change","#members_name", function (){
-        $.ajax({ url: this.value + "/edit" });
-     });
-  });  
-
-  $(function (){
-     $(document).ready(function (){
-        var id =$('#members_name').val();
-        $.ajax({ url: id + "/edit" });
-     });
-  });   
-</script>
-
-<div id="member">
-    <%= select("members", "name", Member.order('id DESC').all.collect {|p| [ p.name, p.id ] }, { include_blank: false }) %>
-    <div id="<%= "edit-details" %>"></div>
-</div>
+﻿<%= form_for :member, url: member_path(@member),  method: :patch do |f| %>
+<p>
+    <%= f.label :name, 'Member Name:' %>
+    <%= f.text_field :name %>
+</p>
+<p>
+    <%= f.label :serial_no, 'Serial No:' %>
+    <%= f.text_field :serial_no %>
+</p>
+<%= f.submit 'Update Member' %> <%= link_to 'Remove Member', member_path(@member), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
 
