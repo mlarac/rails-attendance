@@ -41,6 +41,18 @@ class EventsController < ApplicationController
     @event.destroy
     redirect_to "/events/"
   end
+  
+  def createattendance
+    #@event = Event.find(33)
+	#@member = Member.find(1)
+	#@event.members << @member
+	
+	#redirect_to "/events/"
+  end
+  
+  def show
+    @event = Event.find(params[:id])
+  end
 
  private
     def event_params
