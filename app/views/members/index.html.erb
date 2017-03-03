@@ -1,6 +1,34 @@
+<script type="text/javascript">
+  $(function (){
+     $(document).on("click",".member-name", function (){
+        var id = $(this).attr("value");
+        if ($("#member-details-" + id).css("display") == "none")
+        {
+            $("#member-details-" + id).css("display", "block");
+            $.ajax({ url:  id + "/edit" });
+        }
+        else
+        {
+            $("#member-details-" + id).css("display", "none");
+        }
+     });
+
+  });   
+</script>
+
 <div class="main">
     <h1>Members</h1>
     <%= link_to "Create New", 'new', :remote => true %>
     <div id="new-member"></div>
-    <%= render "edit" %>
+
+    <div id="member-list">
+        <ul>
+            <div id="<%= "edit-details" %>"></div>
+            <% @members.each do |member| %>
+                <li><%= link_to member.name, edit_member_path(member), :class => "member-name", :value => member.id, :remote => true %></li>
+                <div style="display:none;" id="member-details-<%= member.id %>"></div>
+            <% end %>
+        </ul>
+        
+    </div>
 </div>

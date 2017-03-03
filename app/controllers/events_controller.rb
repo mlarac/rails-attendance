@@ -6,7 +6,12 @@ class EventsController < ApplicationController
   end
   
   def index
+	redirect_to "/events/" + Event.last.id.to_s
+  end
+  
+  def show
     @events = Event.all
+    @event = Event.find(params[:id])
 	respond_to do |format|
       format.html # index.html.erb
     end
@@ -22,15 +27,13 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.save
-	
-	@events = Event.all
-    redirect_to "/events/"
+	redirect_to "/events/" + @event.id.to_s
   end
   
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      redirect_to "/events/"
+      redirect_to "/events/" + @event.id.to_s
     else
       render 'edit'
     end
@@ -42,15 +45,8 @@ class EventsController < ApplicationController
     redirect_to "/events/"
   end
   
-  def get_attendance
-    respond_to do |format|
-      msg = { :status => "ok", :message => "Success!" }
-      format.json  { render :json => msg } # don't do msg.to_json
-    end
-  end
-
  private
     def event_params
-      params.require(:event).permit(:name, :start_time, :end_time, :venue)
+      params.require(:eventNew).permit(:name, :start_time, :end_time, :venue)
     end
 end

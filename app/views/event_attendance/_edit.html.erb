@@ -1,0 +1,11 @@
+<%= form_for :event_attendance, url: {action: "create"}, remote: true do |f| %>
+<%= f.hidden_field :event, :value => @event.id %>
+
+    <%= f.select(:absent, @absent,{ :prompt => "Absent"}, { :multiple => true, :size => 10}) %>  
+    <br>
+    <%= f.submit "Add" %><br>
+    <%= f.submit "Remove" %>
+    <br>
+    <%= f.select(:present, @present,{ :prompt => "Present"}, { :multiple => true, :size => 10}) %>    
+
+<% end %>

@@ -1,31 +1,51 @@
 ﻿<h2>New Event</h2>
-<div id="event">
-    <%= form_for :event, url: events_path do |f| %>
-        <p>
-            <%= f.label :name, 'Event Name:' %>
-            <%= f.text_field :name %>
-        </p>
-        <p>
-            <%= f.label :start_time, 'Start Time:' %>
-            <%= f.datetime_local_field :start_time %>
-        </p>
-        <p>
-            <%= f.label :end_time, 'End Time:', class: "datetime-local" %>
-            <%= f.datetime_local_field :end_time %>
-        </p>
-        <p>
-            <%= f.label :venue, 'Venue:' %>
-            <%= f.text_field :venue %>
-        </p>
-        <%= f.submit 'Save Event' %>
-        <a href="javascript:void(0);" id="cancel-new">Cancel</a>
-    <% end %>
-</div>
+<%= form_for :eventNew, :id => 'new-form', url: events_path do |f|%>
+    <p>
+        <%= f.label :name, 'Event Name:' %>
+        <%= f.text_field :name %>
+    </p>
+    <p>
+        <%= f.label :start_time, 'Start Time:' %>
+        <%= f.datetime_local_field :start_time %>
+    </p>
+    <p>
+        <%= f.label :end_time, 'End Time:', class: "datetime-local" %>
+        <%= f.datetime_local_field :end_time %>
+    </p>
+    <p>
+        <%= f.label :venue, 'Venue:' %>
+        <%= f.text_field :venue %>
+    </p>
+    <%= f.submit 'Save Event' %>
+    <a href="javascript:void(0);" id="cancel-new">Cancel</a>
+    <div id="new-status">Unsaved</div>
+<% end %>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#cancel-new").click(function () 
-        {
-            $("#new").html("");
-        });
+$(document).ready(function() {
+    $("#cancel-new").click(function () 
+    {
+        $("#new").css("display", "none");
     });
+});
+
+$("#new-form").submit(function() 
+{  
+    $("#new-status").html("saving");
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+        type: "POST",
+        url: $(this).attr("create"), 
+        data: valuesToSubmit,
+        dataType: "JSON" 
+    }).success(function(newEvent)
+    {
+        $("#new-status").html("saved");
+        var id =newEvent["id"];
+        $.ajax({ url: id + "/edit" });
+        $.ajax({ url: "../event_attendance/" + id + "/edit" });
+        $("#new").css("display", "none");
+    });
+return false;
+});
 </script>

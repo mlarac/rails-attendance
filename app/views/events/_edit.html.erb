@@ -1,31 +1,21 @@
-﻿<script type="text/javascript">
-  $(function (){
-     $(document).on("change","#events_name", function (){
-        $.ajax({ url: this.value + "/edit" });
-     });
-  });  
+﻿<%= select("events", "name", Event.order('id DESC').all.collect {|p| [ p.name, p.id ] }, { include_blank: false, :selected => @event.id }) %>
 
-  $(function (){
-     $(document).ready(function (){
-        var id =$('#events_name').val();
-        $.ajax({ url: id + "/edit" });
-     });
-  });   
-</script>
-
-<div id="event">
-    <%= select("events", "name", Event.order('id DESC').all.collect {|p| [ p.name, p.id ] }, { include_blank: false }) %>
-    <div id="edit-details"></div>
-
-  <div id="attendance">
-      <select id="absence" multiple>
-        <option value="0">Chan Tai Man</option>
-        <option value="1">Chan Siu Man</option>
-      </select>
-          
-      <select id="presence" multiple>
-        <option value="0">Chan Tai Ming</option>
-        <option value="1">Chan Siu Ming</option>      
-      </select>
-  </div>
-</div>
+<%= form_for :event, url: event_path(@event),  method: :patch do |f| %>
+<p>
+    <%= f.label :name, 'Event Name:' %>
+    <%= f.text_field :name %>
+</p>
+<p>
+    <%= f.label :start_time, 'Start Time:' %>
+    <%= f.datetime_local_field :start_time %>
+</p>
+<p>
+    <%= f.label :end_time, 'End Time:' %>
+    <%= f.datetime_local_field :end_time %>
+</p>
+<p>
+    <%= f.label :venue, 'Venue:' %>
+    <%= f.text_field :venue %>
+</p>
+<%= f.submit 'Update Event' %>  <%= link_to 'Remove Event', event_path(@event), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
