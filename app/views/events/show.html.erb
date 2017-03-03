@@ -1,2 +1,31 @@
-<!-- show.html.erb -->
-<p><%= event.id %></p>
+<script type="text/javascript">
+  $(function (){
+     $(document).on("change","#events_name", function (){
+        window.history.pushState("page2", "", + this.value);
+        $.ajax({ url: this.value + "/edit" });
+        $.ajax({ url: "../event_attendance/" + this.value + "/edit" }); 
+     });
+
+     $(document).ready(function (){
+        var id =<%= @event.id %>
+        $.ajax({ url: id + "/edit" });
+        $.ajax({ url: "../event_attendance/" + id + "/edit" });  
+        $("#create-new").click(function () 
+        {
+            $("#new").css("display", "block");
+        });
+     });
+
+  });
+</script>
+
+<div class="main">
+    <h1>Events</h1>
+    <a href="javascript:void(0);" id="create-new">Create New</a>
+    <div id="new" style="display:none;">
+        <%= render "new" %>
+    </div>
+    <div id="edit-details"></div>
+    <div id="attendance"></div>
+
+</div>

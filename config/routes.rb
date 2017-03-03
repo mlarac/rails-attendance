@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :events do
-    member do
-      get :createattendance
-	end
-  end
+  resources :events
   resources :members
-  resources :event_attendance
+  resources :event_attendance do
+    collection do
+      post 'updateAttendance'
+    end
+  end
   root :to => redirect('/events/')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

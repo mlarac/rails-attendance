@@ -1,4 +1,6 @@
-﻿<%= form_for :event, url: event_path(@event),  method: :patch do |f| %>
+﻿<%= select("events", "name", Event.order('id DESC').all.collect {|p| [ p.name, p.id ] }, { include_blank: false, :selected => @event.id }) %>
+
+<%= form_for :event, url: event_path(@event),  method: :patch do |f| %>
 <p>
     <%= f.label :name, 'Event Name:' %>
     <%= f.text_field :name %>
