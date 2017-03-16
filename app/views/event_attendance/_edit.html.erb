@@ -1,23 +1,25 @@
-<%= form_for :event_attendance, :id => 'create-form', url: {action: "create"}, remote: true do |f| %>
+<%-#= form_for :event_attendance, :id => 'create-form', url: {action: "create"}, remote: true do |f| -%>
+<%= form_for :event_attendance, :id => 'create-form', url: {action: "create"} do |f| %>
     <%= f.hidden_field :event, :value => @event.id %>
     <%= f.select(:absent, @absent,{ :prompt => "Absent"}, { :multiple => true, :size => 10}) %>
-    <div id="create-status">hi</div>
+    <div id="create-status"></div>
     <br>
     <%= f.submit "Add" %> 
 <% end %>
 
-<%= form_for :event_attendance, :id => 'remove-form', url: {action: "remove"}, remote: true do |f2| %>
+<%-#f= orm_for :event_attendance, :id => 'remove-form', url: {action: "remove"}, remote: true do |f2| -%>
+<%= form_for :event_attendance, :id => 'remove-form', url: {action: "remove"} do |f2| %>
     <%= f2.hidden_field :event, :value => @event.id %>
     <%= f2.submit "Remove" %>
     <br>
     <%= f2.select(:present, @present,{ :prompt => "Present"}, { :multiple => true, :size => 10}) %>
-    <div id="create-status"></div>
+    <div id="remove-status"></div>
 <% end %>
 
 <script type="text/javascript">
-$("#create-form").submit(function() 
+/*$("#create-form").submit(function() 
 {  
-    /*$("#create-status").html("saving");
+    $("#create-status").html("saving");
     var valuesToSubmit = $(this).serialize();
     $.ajax({
         type: "POST",
@@ -25,6 +27,6 @@ $("#create-form").submit(function()
         data: valuesToSubmit,
         dataType: "JSON" 
     });
-    return false;*/
-});
+    return false;
+});*/
 </script>

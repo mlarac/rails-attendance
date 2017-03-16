@@ -25,7 +25,7 @@ class EventAttendanceController < ApplicationController
         @event.members << @member
       end
     end
-    #redirect_to "/events/"
+    redirect_to "/events/" + @event.id.to_s
   end
   
   def remove
@@ -36,6 +36,6 @@ class EventAttendanceController < ApplicationController
         @event.members.delete(@member)
       end
     end
-    #redirect_to "/events/"
+    redirect_to "/events/" + @event.id.to_s
   end
 end
