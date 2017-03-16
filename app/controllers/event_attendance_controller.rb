@@ -16,33 +16,24 @@ class EventAttendanceController < ApplicationController
       format.js
     end
   end
-  
-  def updateAttendance
-    @event = Event.find(params[:event_attendance][:event])
-    if params[:commit] == "Add"
-      params[:event_attendance][:absent].each do |p|
-        if p != ""
-          @member = Member.find(p)
-          @event.members << @member
-        end
-      end
-    elsif params[:commit] == "Remove"
-      params[:event_attendance][:present].each do |p|
-        if p != ""
-          @member = Member.find(p)
-          @event.members.delete(@member)
-        end
-      end
-    end
-    redirect_to "/events/"
-  end
-  
+    
   def create
     @event = Event.find(params[:event_attendance][:event])
     params[:event_attendance][:absent].each do |p|
       if p != ""
         @member = Member.find(p)
         @event.members << @member
+      end
+    end
+    #redirect_to "/events/"
+  end
+  
+  def remove
+    @event = Event.find(params[:event_attendance][:event])
+    params[:event_attendance][:present].each do |p|
+      if p != ""
+        @member = Member.find(p)
+        @event.members.delete(@member)
       end
     end
     #redirect_to "/events/"

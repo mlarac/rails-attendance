@@ -1,4 +1,6 @@
-﻿<h2>New Event</h2>
+﻿<a href="javascript:void(0);" id="create-new">Create New</a>
+<div id="new-hidden" style="display:none;">
+<h2>New Event</h2>
 <%= form_for :eventNew, :id => 'new-form', url: events_path do |f|%>
     <p>
         <%= f.label :name, 'Event Name:' %>
@@ -20,12 +22,18 @@
     <a href="javascript:void(0);" id="cancel-new">Cancel</a>
     <div id="new-status">Unsaved</div>
 <% end %>
+</div>
 
 <script type="text/javascript">
 $(document).ready(function() {
+    $("#create-new").click(function () 
+        {
+            $("#new-hidden").css("display", "block");
+            $("#eventNew_name").focus();
+        });
     $("#cancel-new").click(function () 
     {
-        $("#new").css("display", "none");
+        $("#new-hidden").css("display", "none");
     });
 });
 
@@ -38,14 +46,7 @@ $("#new-form").submit(function()
         url: $(this).attr("create"), 
         data: valuesToSubmit,
         dataType: "JSON" 
-    }).success(function(newEvent)
-    {
-        $("#new-status").html("saved");
-        var id =newEvent["id"];
-        $.ajax({ url: id + "/edit" });
-        $.ajax({ url: "../event_attendance/" + id + "/edit" });
-        $("#new").css("display", "none");
     });
-return false;
+    return false;
 });
 </script>
