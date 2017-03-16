@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :members
   resources :event_attendance do
     collection do
-      post 'updateAttendance'
+      post 'remove'
     end
   end
   root :to => redirect('/events/')
